@@ -1,9 +1,11 @@
 package org.bytecoin.rpc.service;
 
-import java.io.IOException;
+import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
+import org.bytecoin.rpc.model.CreateAddressResponse;
 import org.bytecoin.rpc.model.GetAddressesResponse;
+import org.bytecoin.rpc.model.GetSpendKeysResponse;
 import org.bytecoin.rpc.model.GetStatusResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +21,7 @@ public class WalletJsonRpcApiIT {
 	private WalletJsonRpcApi walletJsonRpcApi;
 
 	@Test
-	public void getStatus() throws IOException {
+	public void getStatus() {
 		GetStatusResponse status = walletJsonRpcApi.getStatus();
 		
 		Assertions.assertThat(status).satisfies(r -> {
@@ -31,7 +33,7 @@ public class WalletJsonRpcApiIT {
 	}
 	
 	@Test
-	public void getAddresses() throws IOException {
+	public void getAddresses() {
 		GetAddressesResponse addresses = walletJsonRpcApi.getAddresses();
 		
 		Assertions.assertThat(addresses.getAddresses())
@@ -40,4 +42,26 @@ public class WalletJsonRpcApiIT {
 				Assertions.assertThat(a).isNotEmpty();
 			});
 	}
+	
+	@Test
+	public void getSpendKeys() {
+		GetAddressesResponse addresses = walletJsonRpcApi.getAddresses();
+		
+		Optional<String> anyAddress = addresses.getAddresses().stream().findAny();
+		
+		Assertions.assertThat(anyAddress)
+			.isNotEmpty()
+			.satisfies(a -> {				
+				GetSpendKeysResponse spendKeys = walletJsonRpcApi.getSpendKeys(anyAddress.get());
+				Assertions.assertThat(spendKeys.getSpendPublicKey()).isNotEmpty();
+				Assertions.assertThat(spendKeys.getSpendSecretKey()).isNotEmpty();
+			});
+	}	
+	
+	@Test
+	public void createAddress() {
+		CreateAddressResponse createAddress = walletJsonRpcApi.createAddress(null, null);
+		
+		Assertions.assertThat(createAddress.getAddress()).isNotEmpty();
+	}	
 }
