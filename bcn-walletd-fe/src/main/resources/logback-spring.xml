@@ -71,13 +71,11 @@
     <springProfile name="development">
     	<logger name="org.springframework.web" level="INFO" />
     	<logger name="com.googlecode.jsonrpc4j" level="DEBUG" />    	
-        <logger name="org.bytecoin" level="DEBUG" additivity="true">
-            <appender-ref ref="FILE-INSERT-APP-DEBUG" />
-        </logger>
+        <logger name="org.bytecoin" level="DEBUG" />
     </springProfile>
     
     <springProfile name="production">
-        <logger name="org.bytecoin" level="INFO" additivity="false">
+        <logger name="org.bytecoin" level="INFO">
             <appender-ref ref="FILE-INSERT-APP-DEBUG" />
         </logger>
     </springProfile>

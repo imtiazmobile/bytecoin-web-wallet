@@ -1,0 +1,51 @@
+spring:
+    application:
+        name: bcn-walletd-fe
+    main:
+        banner-mode: "off"
+
+server:
+    port: 8080
+    tomcat:
+        basedir: ./
+        accesslog: 
+            enabled: true
+            pattern: '%h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i" %Dms'
+            directory: my-app-logs
+
+security:
+    ignored: /**
+    basic:
+        enabled: false
+
+management:
+    security: 
+        enabled: false
+    context-path: /manage
+
+---
+
+spring:
+    profiles: test
+    jpa:
+        generate-ddl: true
+        show-sql: true
+        hibernate:
+            ddl-auto: create-drop
+    security:
+        enabled: false
+            
+---
+
+spring:
+    profiles: development
+
+---
+
+spring:
+    profiles: it 
+
+---
+
+spring:
+    profiles: production            

@@ -1,11 +1,11 @@
 spring:
     application:
-        name: bytecoin-web-wallet
+        name: bcn-walletd-ms
     main:
         banner-mode: "off"
 
 server:
-    port: 8080
+    port: 8090
     tomcat:
         basedir: ./
         accesslog: 
