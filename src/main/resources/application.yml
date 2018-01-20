@@ -42,6 +42,14 @@ spring:
 
 spring:
     profiles: development
+
+---
+
+spring:
+    profiles: it
+    
+bytecoin:
+    rpc-wallet-api-endpoint: http://localhost:${bytecoin-rpc-wallet.port}/json_rpc    
     
 ---
 

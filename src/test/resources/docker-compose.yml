@@ -1,0 +1,10 @@
+version: '3.3'
+
+services:
+  bytecoin-rpc-wallet:
+    image: willianantunes/bytecoin-rpc-wallet
+    ports:
+      - 8070:8070
+    environment:
+      envDaemonAddress: bcn-node01.bytecoin.cloud
+      envDaemonPort: 8081
